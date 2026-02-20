@@ -7,7 +7,7 @@ set $mod Mod4
 set $term alacritty
 
 # Your preferred application launcher
-set $menu (wofi --show=drun)
+set $menu wofi -a --show=drun
 
 # Browser
 set $browser firefox
@@ -36,23 +36,24 @@ input type:keyboard {
 bindsym $mod+Return exec $term
 
 # Kill focused window
-bindsym $mod+Shift+q kill
+bindsym --to-code $mod+Shift+q kill
 
 # Start your launcher
-bindsym $mod+d exec $menu
+bindsym --to-code $mod+d exec $menu
 
 # Browser
 bindsym $mod+F1 exec $browser
 
 # File-manager
-bindsym $mod+e exec $files
+bindsym --to-code $mod+e exec $files
+
 floating_modifier $mod normal
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym --to-code $mod+Shift+c reload
 
 # Exit sway
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 # Focus windows
 bindsym $mod+Left focus left
@@ -94,16 +95,16 @@ bindsym $mod+Shift+0 move container to workspace number 10
 
 
 # Horizontal and vertical split
-bindsym $mod+b splith
-bindsym $mod+v splitv
+bindsym --to-code $mod+h splith
+bindsym --to-code $mod+v splitv
 
 # Layout styles
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+t layout toggle split
+bindsym --to-code $mod+s layout stacking
+bindsym --to-code $mod+w layout tabbed
+bindsym --to-code $mod+t layout toggle split
 
 # Fullscreen
-bindsym $mod+f fullscreen
+bindsym --to-code $mod+f fullscreen
 
 # Toggle floating mode
 bindsym $mod+Shift+space floating toggle
@@ -112,7 +113,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Parent container
-bindsym $mod+a focus parent
+bindsym --to-code $mod+a focus parent
 
 # Scratchpad:
 # Move the currently focused window to the scratchpad
@@ -147,8 +148,18 @@ bindsym Print exec grim
 # Polkit
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+# mouse focus
+focus_follows_mouse no
 
 # Decorations
+
+# GTK themeCCC
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme 'Material-Black-Cherry'
+    gsettings set org.gnome.desktop.interface icon-theme 'Cherry-Numix-2021'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Your cursor Theme'
+    gsettings set org.gnome.desktop.interface font-name 'Your font name'
+}
 
 # gaps
 gaps inner 10
@@ -158,7 +169,6 @@ smart_gaps true
 # bordes
 default_border pixel 1
 hide_edge_borders smart
-
 
 # colors
 client.focused #ffffff #f2e5b9 #ffffff #ffffff
